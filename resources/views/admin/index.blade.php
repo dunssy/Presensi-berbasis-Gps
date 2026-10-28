@@ -1,3 +1,3 @@
-<div>
-    <!-- An unexamined life is not worth living. - Socrates -->
-</div>
+@extends('layout.header')
+@extends('layout.sidebar')
+@extends('layout.footer')
