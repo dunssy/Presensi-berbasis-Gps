@@ -3,64 +3,46 @@
 namespace App\Http\Controllers\Employee;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Logbook\StoreLogbookRequest;
 use App\Models\Logbook;
-use Illuminate\Http\Request;
+use App\Models\LogbookHistory;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class LogbookController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
-        //
-    }
+        $logbooks = Auth::user()->logbooks()
+            ->with(['projek', 'reviewer'])
+            ->latest('date')
+            ->paginate(10);
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return view('karyawan.logbook.index', compact('logbooks'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreLogbookRequest $request): RedirectResponse
     {
-        //
-    }
+        $validated = $request->validated();
+        $validated['user_id'] = Auth::id();
+        $validated['status'] = 'submitted';
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Logbook $logbook)
-    {
-        //
-    }
+        $logbook = Logbook::create($validated);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Logbook $logbook)
-    {
-        //
-    }
+        LogbookHistory::create([
+            'logbook_id' => $logbook->id,
+            'user_id' => Auth::id(),
+            'action' => 'submitted',
+            'note' => 'Logbook diajukan oleh karyawan',
+        ]);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Logbook $logbook)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Logbook $logbook)
-    {
-        //
+        return back()->with('success', 'Logbook kegiatan harian berhasil disimpan.');
     }
 }

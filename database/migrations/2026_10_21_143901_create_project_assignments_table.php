@@ -13,7 +13,13 @@ return new class extends Migration
     {
         Schema::create('project_assignments', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('projek_id')->constrained('projeks')->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->string('role_in_project')->default('member');
+            $table->date('assigned_at')->nullable();
             $table->timestamps();
+
+            $table->unique(['projek_id', 'user_id']);
         });
     }
 

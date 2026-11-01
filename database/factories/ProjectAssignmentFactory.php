@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\ProjectAssignment;
+use App\Models\Projek;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +20,10 @@ class ProjectAssignmentFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'projek_id' => Projek::factory(),
+            'user_id' => User::factory(),
+            'role_in_project' => 'member',
+            'assigned_at' => now()->toDateString(),
         ];
     }
 }

@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('projeks', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('code')->unique();
+            $table->text('description')->nullable();
+            $table->string('client_name')->nullable();
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
+            $table->string('status')->default('aktif'); // aktif, selesai, tertunda
             $table->timestamps();
         });
     }

@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('logbook_attachments', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('logbook_id')->constrained('logbooks')->cascadeOnDelete();
+            $table->string('file_path');
+            $table->string('file_name');
+            $table->string('file_type')->nullable();
+            $table->integer('file_size')->nullable();
             $table->timestamps();
         });
     }

@@ -18,7 +18,13 @@ class ProjekFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->company().' Project',
+            'code' => 'PRJ-'.fake()->unique()->numerify('####'),
+            'description' => fake()->sentence(),
+            'client_name' => fake()->company(),
+            'start_date' => now()->subMonths(1)->toDateString(),
+            'end_date' => now()->addMonths(5)->toDateString(),
+            'status' => 'aktif',
         ];
     }
 }

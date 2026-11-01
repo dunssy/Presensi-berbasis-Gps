@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Logbook;
 use App\Models\LogbookHistory;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +20,10 @@ class LogbookHistoryFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'logbook_id' => Logbook::factory(),
+            'user_id' => User::factory(),
+            'action' => 'created',
+            'note' => 'Logbook entry initial creation',
         ];
     }
 }

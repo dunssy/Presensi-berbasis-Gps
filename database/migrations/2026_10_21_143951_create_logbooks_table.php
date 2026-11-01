@@ -13,6 +13,16 @@ return new class extends Migration
     {
         Schema::create('logbooks', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('projek_id')->nullable()->constrained('projeks')->nullOnDelete();
+            $table->date('date');
+            $table->string('title');
+            $table->text('description');
+            $table->integer('progress_percentage')->default(0);
+            $table->string('status')->default('submitted'); // draft, submitted, approved, rejected
+            $table->text('review_notes')->nullable();
+            $table->foreignId('reviewed_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->timestamp('reviewed_at')->nullable();
             $table->timestamps();
         });
     }

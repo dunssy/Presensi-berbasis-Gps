@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\AttendancePoint;
+use App\Models\Projek;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +19,13 @@ class AttendancePointFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'projek_id' => Projek::factory(),
+            'name' => 'Site '.fake()->city(),
+            'latitude' => -6.200000 + fake()->randomFloat(6, -0.05, 0.05),
+            'longitude' => 106.816666 + fake()->randomFloat(6, -0.05, 0.05),
+            'radius_meters' => 100,
+            'address' => fake()->address(),
+            'is_active' => true,
         ];
     }
 }

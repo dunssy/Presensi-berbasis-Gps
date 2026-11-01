@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('logbook_histories', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('logbook_id')->constrained('logbooks')->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->string('action'); // created, updated, submitted, approved, rejected
+            $table->text('note')->nullable();
             $table->timestamps();
         });
     }

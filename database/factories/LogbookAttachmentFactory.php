@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Logbook;
 use App\Models\LogbookAttachment;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -18,7 +19,11 @@ class LogbookAttachmentFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'logbook_id' => Logbook::factory(),
+            'file_path' => 'attachments/sample.pdf',
+            'file_name' => 'sample.pdf',
+            'file_type' => 'application/pdf',
+            'file_size' => 1024,
         ];
     }
 }
