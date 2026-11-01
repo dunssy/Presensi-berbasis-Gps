@@ -11,7 +11,6 @@ use App\Http\Controllers\Employee\LogbookController;
 use App\Http\Controllers\Manager\LogbookReviewController;
 use App\Http\Controllers\Manager\ProjectMonitoringController;
 use App\Http\Controllers\ReportController;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,22 +19,10 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-// Root redirect
+// Landing Page (Public Homepage)
 Route::get('/', function () {
-    if (Auth::check()) {
-        $user = Auth::user();
-        if ($user->isAdmin()) {
-            return redirect()->route('admin.dashboard');
-        }
-        if ($user->isManager()) {
-            return redirect()->route('manager.dashboard');
-        }
-
-        return redirect()->route('karyawan.dashboard');
-    }
-
-    return redirect()->route('login');
-});
+    return view('landing');
+})->name('home');
 
 // Authentication Routes (Guest)
 Route::middleware('guest')->group(function () {

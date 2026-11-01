@@ -99,6 +99,7 @@ Berikut struktur direktori utama pada proyek ini:
 │
 ├── resources/
 │   └── views/                           # Frontend Blade Templates
+│       ├── landing.blade.php            # Landing Page Publik Interaktif (Alpine.js, Radar Simulator)
 │       ├── layout/
 │       │   └── app.blade.php            # Master Shell: Sidebar, Topbar, Flash Message, Profil
 │       ├── auth/
